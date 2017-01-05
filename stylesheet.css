@@ -2,6 +2,13 @@ html {
   background: #323232;
 }
 
+#pgtitle {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  margin: 8% auto;
+}
+
 #out {
   color: #ffffff;
   text-align: center;
@@ -10,7 +17,7 @@ html {
 
 #locbtn {
   position: relative;
-  margin: 8% auto auto auto;
+  margin: 3% auto auto auto;
   text-align: center;
 
 
@@ -25,4 +32,5 @@ button {
   font-family: sans-serif;
   font-size: 1em;
   font-style: normal;
+  padding: 18px;
 }
