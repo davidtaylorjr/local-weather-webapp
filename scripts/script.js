@@ -2,7 +2,7 @@
 
 function geoLocation() {
 
-    var output = document.getElementById("out");
+var output = document.getElementById("out");
 
     if (!navigator.geolocation) {
         output.innerHTML = '<p>Location services are not supported by your browser</p>';
