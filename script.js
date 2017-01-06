@@ -1,3 +1,11 @@
+// Below is the code to run the javascript on pageload
+
+$(document).ready( function () {
+  geoLocation();
+});
+
+//Geolocation Function is listed below.
+
 function geoLocation() {
     var output = document.getElementById("out");
 
