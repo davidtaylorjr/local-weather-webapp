@@ -1,27 +1,19 @@
-//Function to find geolocation coordinates
-
 function geoLocation() {
+    var output = document.getElementById("out");
 
-var output = document.getElementById("out");
+    $.getJSON('https://ipinfo.io/geo', function(response) {
+        var loc = response.loc.split(',');
+        var coords = {
+            latitude: loc[0],
+            longitude: loc[1]
+        };
+        var city = response.city;
+        var state = response.region;
+        var zip = response.postal;
+        var country = response.country;
 
-    if (!navigator.geolocation) {
-        output.innerHTML = '<p>Location services are not supported by your browser</p>';
-        return;
-    }
+        console.log("You are in " + city + ", " + state);
+        output.innerHTML = "<p>You are in " + city + ", " + state;
+    });
 
-    function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-
-        output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-    }
-
-    function error() {
-        output.innerHTML = "Unable to retrieve your location";
-    }
-
-    output.innerHTML = "<p>Locating…</p>";
-
-    navigator.geolocation.getCurrentPosition(success, error);
 }
