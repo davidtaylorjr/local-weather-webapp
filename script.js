@@ -28,7 +28,7 @@ function geoLocation() {
         output.innerHTML = "<p>Here is the weather for " + city + ", " + state;
 
 
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',' + country + "&appid=ec96c6ed7e722bdd15cfebffbff509a6", function(data) {
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',' + country + "&units=imperial" + "&appid=ec96c6ed7e722bdd15cfebffbff509a6", function(data) {
 
             //var main = data.main.split(',');
             var temp = data.main.temp;
