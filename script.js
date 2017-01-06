@@ -30,10 +30,8 @@ function geoLocation() {
 
         $.getJSON('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',' + country + "&appid=ec96c6ed7e722bdd15cfebffbff509a6", function(data) {
 
-            var main = data.main.split(',');
-            var conditons = {
-                temp: main[0]
-            };
+            //var main = data.main.split(',');
+            var temp = data.main.temp;
 
             console.log(temp);
             var weatherConditions = document.getElementById("conditions");
