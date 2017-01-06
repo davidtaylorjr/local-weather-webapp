@@ -4,28 +4,30 @@
 function geoLocation() {
     var output = document.getElementById("out");
 
-    /*$.getJSON('https://ipinfo.io/geo', function(response) {
-        var loc = response.loc.split(',');
-        var coords = {
-            latitude: loc[0],
-            longitude: loc[1]
-        };
-        var city = response.city;
-        var state = response.region;
-        var postal = response.postal;
-        var country = response.country;
+    if (!navigator.geolocation){
+    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+    return;
+  }
 
-        output.innerHTML = "<p>Here is the weather for " + city + ", " + state;*/
+  function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
 
-        $.getJSON('http://ip-api.com/json', function(response) {
+    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
-        var city = response.city;
-        var state = response.region;
-        var zip = response.zip;
-        var country = response.countryCode;
-        var ip = response.query;
+  /*  var img = new Image();
+    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
 
-        output.innerHTML = "<p>Here is the weather for " + city + ", " + state;
+    output.appendChild(img);*/
+  }
+
+  function error() {
+    output.innerHTML = "Unable to retrieve your location";
+  }
+
+  output.innerHTML = "<p>Locating…</p>";
+
+  navigator.geolocation.getCurrentPosition(success, error);
 
 
         $.getJSON('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',' + country + "&units=imperial" + "&appid=ec96c6ed7e722bdd15cfebffbff509a6", function(data) {
@@ -38,7 +40,5 @@ function geoLocation() {
 
             conditions.innerHTML = "<p>The current temperature is " + temp;
         });
-    });
-
 
 }
