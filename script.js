@@ -23,14 +23,24 @@ function geoLocation() {
     $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAZch_gAq-6Ja3fUQ8sXStIhyB_dJ0mSgU', function (city) {
 
       var address = city.results[2].formatted_address;
-      console.log(city.results[2].formatted_address);
+
 
       var streetAddress = document.getElementById(userAddress);
 
       userAddress.innerHTML = "<p>Current condtions for " + address;
 
     });
+
+
+$.ajax({
+  url: 'https://api.darksky.net/forecast/61f104c5d563f5c8aa29eca3beea2bde/' + latitude + ',' + longitude,
+  dataType: "jsonp",
+  success: function(data) {
+    console.log(data);
   }
+});
+
+}
 
   function error() {
     output.innerHTML = "Unable to retrieve your location";
@@ -39,17 +49,5 @@ function geoLocation() {
   output.innerHTML = "<p>Locating…</p>";
 
   navigator.geolocation.getCurrentPosition(success, error);
-
-
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',' + country + "&units=imperial" + "&appid=ec96c6ed7e722bdd15cfebffbff509a6", function(data) {
-
-            //var main = data.main.split(',');
-            var temp = data.main.temp;
-
-            console.log(temp);
-            var weatherConditions = document.getElementById("conditions");
-
-            conditions.innerHTML = "<p>The current temperature is " + temp;
-        });
 
 }
