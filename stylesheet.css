@@ -27,6 +27,12 @@ html {
   font-family: sans-serif;
 }
 
+#twentyfour {
+  color: #ffffff;
+  text-align: center;
+  font-family: sans-serif;
+}
+
 #locbtn {
   position: relative;
   margin: 3% auto auto auto;

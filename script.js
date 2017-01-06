@@ -40,12 +40,17 @@ $.ajax({
 
     var temp = data.currently.temperature;
     var description = data.currently.summary;
+    var hourlyDescription = data.hourly.summary;
 
     console.log(data);
 
     var current = document.getElementById(conditions);
 
     conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " and " + description;
+
+    var hourly = document.getElementById(twentyfour);
+
+    twentyfour.innerHTML = "<p> Expect " + hourlyDescription;
   }
 });
 
