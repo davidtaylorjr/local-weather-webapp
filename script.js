@@ -15,7 +15,6 @@ function geoLocation() {
         var postal = response.postal;
         var country = response.country;
 
-        console.log("You are in " + city + ", " + state);
         output.innerHTML = "<p>You are in " + city + ", " + state;
     });
 
