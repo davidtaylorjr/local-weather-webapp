@@ -1,8 +1,3 @@
-// Below is the code to run the javascript on pageload
-
-$(document).ready( function () {
-  geoLocation();
-});
 
 //Geolocation Function is listed below.
 
@@ -17,7 +12,7 @@ function geoLocation() {
         };
         var city = response.city;
         var state = response.region;
-        var zip = response.postal;
+        var postal = response.postal;
         var country = response.country;
 
         console.log("You are in " + city + ", " + state);
