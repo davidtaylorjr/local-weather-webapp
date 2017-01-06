@@ -19,6 +19,17 @@ function geoLocation() {
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
 
     output.appendChild(img);*/
+
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAZch_gAq-6Ja3fUQ8sXStIhyB_dJ0mSgU', function (city) {
+
+      var address = city.results[2].formatted_address;
+      console.log(city.results[2].formatted_address);
+
+      var streetAddress = document.getElementById(userAddress);
+
+      userAddress.innerHTML = "<p>Current condtions for " + address;
+
+    });
   }
 
   function error() {
