@@ -13,7 +13,7 @@ function geoLocation() {
     var latitude  = position.coords.latitude;
     var longitude = position.coords.longitude;
 
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+    //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
   /*  var img = new Image();
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
@@ -36,7 +36,16 @@ $.ajax({
   url: 'https://api.darksky.net/forecast/61f104c5d563f5c8aa29eca3beea2bde/' + latitude + ',' + longitude,
   dataType: "jsonp",
   success: function(data) {
+
+
+    var temp = data.currently.temperature;
+    var description = data.currently.summary;
+
     console.log(data);
+
+    var current = document.getElementById(conditions);
+
+    conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " and " + description;
   }
 });
 
@@ -46,7 +55,7 @@ $.ajax({
     output.innerHTML = "Unable to retrieve your location";
   }
 
-  output.innerHTML = "<p>Locating…</p>";
+//  output.innerHTML = "<p>Locating…</p>";
 
   navigator.geolocation.getCurrentPosition(success, error);
 
