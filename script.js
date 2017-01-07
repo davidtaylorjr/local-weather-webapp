@@ -25,7 +25,7 @@ function geoLocation() {
       var address = city.results[2].formatted_address;
 
 
-      var streetAddress = document.getElementById(userAddress);
+      var userAddressObj = document.getElementById(userAddress);
 
       userAddress.innerHTML = "<p>Current condtions for " + address;
 
