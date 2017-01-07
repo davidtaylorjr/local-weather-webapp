@@ -1,0 +1,8 @@
+cloud
+sun
+rays
+rain
+lightning
+snow
+bolt
+flake
