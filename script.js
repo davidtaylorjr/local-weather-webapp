@@ -46,7 +46,7 @@ $.ajax({
 
     var current = document.getElementById(conditions);
 
-    conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " and " + description;
+    conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
 
     var hourly = document.getElementById(twentyfour);
 
