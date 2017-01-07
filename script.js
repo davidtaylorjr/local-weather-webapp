@@ -33,7 +33,7 @@ function geoLocation() {
 
 
 $.ajax({
-  url: 'https://api.darksky.net/forecast/61f104c5d563f5c8aa29eca3beea2bde/' + latitude + ',' + longitude,
+  url: 'https://api.darksky.net/forecast/61f104c5d563f5c8aa29eca3beea2bde/' + latitude + ',' + longitude + "?units=us",
   dataType: "jsonp",
   success: function(data) {
 
