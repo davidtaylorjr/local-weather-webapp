@@ -51,8 +51,18 @@ function geoLocation() {
 
                 twentyfour.innerHTML = "<p> Expect " + hourlyDescription;
 
+                var weatherIcon = document.getElementById(weathercon);
+
                 var icon = data.currently.icon;
                 console.log(data.currently.icon);
+                /*    switch (icon) {
+                        case 'clear-night':
+                            return weathercon.innerHTML = '<div class="sun"> \
+                            <div class=rays>';
+                            break;
+                        default:
+
+                    } */
             }
         });
 
