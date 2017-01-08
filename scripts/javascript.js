@@ -1,4 +1,4 @@
-//Geolocation Function is listed below. 
+//Geolocation Function is listed below.
 
 function geoLocation() {
     var output = document.getElementById("out");
@@ -50,6 +50,9 @@ function geoLocation() {
                 var hourly = document.getElementById(twentyfour);
 
                 twentyfour.innerHTML = "<p> Expect " + hourlyDescription;
+
+                var icon = data.currently.icon;
+                console.log(data.currently.icon);
             }
         });
 
