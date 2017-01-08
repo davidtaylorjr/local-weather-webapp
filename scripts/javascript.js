@@ -12,7 +12,7 @@ function geoLocation() {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
 
-    
+
 
           //Google Maps API to return printed location as opposed to lat/lon coordinates.
         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAZch_gAq-6Ja3fUQ8sXStIhyB_dJ0mSgU', function(city) {
@@ -43,6 +43,12 @@ function geoLocation() {
                 var current = document.getElementById(conditions);
 
                 conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
+                    // Code to return the celsius converstion
+                    function celsius() {
+                        var celsius = Math.round((temp -32) * (5/9));
+                        conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
+                        console.log(celsius);
+                    }
 
                 var hourly = document.getElementById(twentyfour);
 
