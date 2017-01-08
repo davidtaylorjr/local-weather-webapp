@@ -39,7 +39,7 @@ function geoLocation() {
                 var hourlyDescription = data.hourly.summary;
                 var celsius = Math.round((temp -32) * (5/9));
                 console.log(celsius);
-                
+
                 // Code to return the celsius converstion
                 function convert() {
 
