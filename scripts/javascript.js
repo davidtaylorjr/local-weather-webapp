@@ -1,4 +1,4 @@
-//Geolocation Function is listed below.
+//Geolocation Function is listed below. 
 
 function geoLocation() {
     var output = document.getElementById("out");
