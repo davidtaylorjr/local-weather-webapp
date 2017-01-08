@@ -39,16 +39,19 @@ function geoLocation() {
                 var hourlyDescription = data.hourly.summary;
                 var celsius = Math.round((temp -32) * (5/9));
                 console.log(celsius);
+                
+                // Code to return the celsius converstion
+                function convert() {
+
+                    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
+
+                }
 
                 var current = document.getElementById(conditions);
 
                 conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
-                    // Code to return the celsius converstion
-                    function celsius() {
 
-                        conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
-                        console.log(celsius);
-                    }
+
 
                 var hourly = document.getElementById(twentyfour);
 
