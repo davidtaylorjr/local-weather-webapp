@@ -37,15 +37,15 @@ function geoLocation() {
                 var temp = data.currently.temperature;
                 var description = data.currently.summary;
                 var hourlyDescription = data.hourly.summary;
-
-                console.log(data);
+                var celsius = Math.round((temp -32) * (5/9));
+                console.log(celsius);
 
                 var current = document.getElementById(conditions);
 
                 conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
                     // Code to return the celsius converstion
                     function celsius() {
-                        var celsius = Math.round((temp -32) * (5/9));
+
                         conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
                         console.log(celsius);
                     }
