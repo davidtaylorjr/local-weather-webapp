@@ -12,13 +12,9 @@ function geoLocation() {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
 
-        //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+    
 
-        /*  var img = new Image();
-          img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-          output.appendChild(img);*/
-
+          //Google Maps API to return printed location as opposed to lat/lon coordinates.
         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAZch_gAq-6Ja3fUQ8sXStIhyB_dJ0mSgU', function(city) {
 
             var address = city.results[2].formatted_address;
@@ -30,6 +26,7 @@ function geoLocation() {
 
         });
 
+        //current conditions api from Darksky.net and variables for printing inside app.
 
         $.ajax({
             url: 'https://api.darksky.net/forecast/61f104c5d563f5c8aa29eca3beea2bde/' + latitude + ',' + longitude + "?units=us",
@@ -53,35 +50,36 @@ function geoLocation() {
 
                 var weatherIcon = document.getElementById(weathercon);
 
+                // switch to generate weather icon based on current conditions
                 var icon = data.currently.icon;
-                console.log(data.currently.icon);
+
                     switch (icon) {
                         case 'clear-night':
                         case 'clear-day':
                             return weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
                             break;
                         case 'rain':
-                            return weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>'
+                            return weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
                             break;
                         case 'thunderstorm':
                         case 'hail':
-                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>'
+                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
                             break;
                         case 'cloudy':
                         case 'fog':
                         case 'windy':
-                            return weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>'
+                            return weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
                             break;
                         case 'snow':
                         case 'sleet':
-                            return weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>'
+                            return weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
                             break;
                         case 'partly-cloudy-day':
                         case 'partly-cloudy-night':
-                            return weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>'
+                            return weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
                             break;
                         case 'tornado':
-                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>'
+                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
                             break;
 
                         default:
