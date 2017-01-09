@@ -3,11 +3,11 @@
 
     <head>
         <title>Your Local Weather</title>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
         <link rel="stylesheet" type="text/css" href="css/weather-icon-animated.css">
         <script src="scripts/javascript.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="scripts/skycons.js"></script>
+        <!--<script src="scripts/skycons.js"></script>-->
     </head>
 
     <body onload="javascript:geoLocation()">
@@ -35,6 +35,12 @@
 
 
             </div>
+        <div class="buttons">
+
+            <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
+            <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
+
+        </div>
 
     </body>
 
