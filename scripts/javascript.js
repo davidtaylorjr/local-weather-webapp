@@ -38,14 +38,13 @@ function geoLocation() {
                 var description = data.currently.summary;
                 var hourlyDescription = data.hourly.summary;
                 var celsius = Math.round((temp -32) * (5/9));
-                console.log(celsius);
 
-                // Code to return the celsius converstion
-                function convert() {
 
-                    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
+                window.temp = temp;
+                window.description = description;
+                window.celsius = celsius;
 
-                }
+
 
                 var current = document.getElementById(conditions);
 
@@ -106,5 +105,18 @@ function geoLocation() {
     userAddress.innerHTML = "<p>Locating…</p>";
 
     navigator.geolocation.getCurrentPosition(success, error);
+
+}
+
+// Code to return the celsius converstion
+function convertC() {
+
+    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
+
+}
+
+function convertF() {
+
+    conditions.innerHTML = "<p> It is currently " + Math.round((celsius * (9/5)) + 32) + " °F" + " and " + description;
 
 }
