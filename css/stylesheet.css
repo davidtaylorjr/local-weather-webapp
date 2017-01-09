@@ -47,7 +47,7 @@ html {
 
 }
 
-#convertbtn {
+#celsiusbtn {
   position: relative;
   top: 8.5em;
   font-family: sans-serif;
@@ -56,6 +56,19 @@ html {
   border: none;
   border-radius: 3px;
   padding: 10px;
+  float: right;
+}
+
+#fahrenheitbtn {
+  position: relative;
+  top: 8.5em;
+  font-family: sans-serif;
+  background-color: #828282;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  float: left;
 }
 
 /*button {
