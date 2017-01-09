@@ -47,6 +47,11 @@ html {
 
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
 #celsiusbtn {
   position: relative;
   top: 8.5em;
@@ -57,6 +62,7 @@ html {
   border-radius: 3px;
   padding: 10px;
   float: right;
+  margin: 5px;
 }
 
 #fahrenheitbtn {
@@ -69,9 +75,11 @@ html {
   border-radius: 3px;
   padding: 10px;
   float: left;
+  align-items: center;
+  margin: 5px;
 }
 
-/*button {
+button {
   background-color: #3f46a2;
   border: none;
   border-radius: 3px;
@@ -81,4 +89,4 @@ html {
   font-size: 1em;
   font-style: normal;
   padding: 18px;
-} */
+}
