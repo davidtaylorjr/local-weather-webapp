@@ -1,5 +1,3 @@
-//Geolocation Function is listed below.
-
 function geoLocation() {
     var output = document.getElementById("out");
 
@@ -14,7 +12,7 @@ function geoLocation() {
 
 
 
-          //Google Maps API to return printed location as opposed to lat/lon coordinates.
+        //Google Maps API to return printed location as opposed to lat/lon coordinates.
         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAZch_gAq-6Ja3fUQ8sXStIhyB_dJ0mSgU', function(city) {
 
             var address = city.results[2].formatted_address;
@@ -37,7 +35,7 @@ function geoLocation() {
                 var temp = data.currently.temperature;
                 var description = data.currently.summary;
                 var hourlyDescription = data.hourly.summary;
-                var celsius = Math.round((temp -32) * (5/9));
+                var celsius = Math.round((temp - 32) * (5 / 9));
 
 
                 window.temp = temp;
@@ -61,38 +59,38 @@ function geoLocation() {
                 // switch to generate weather icon based on current conditions
                 var icon = data.currently.icon;
 
-                    switch (icon) {
-                        case 'clear-night':
-                        case 'clear-day':
-                            return weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
-                            break;
-                        case 'rain':
-                            return weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
-                            break;
-                        case 'thunderstorm':
-                        case 'hail':
-                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
-                            break;
-                        case 'cloudy':
-                        case 'fog':
-                        case 'windy':
-                            return weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
-                            break;
-                        case 'snow':
-                        case 'sleet':
-                            return weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
-                            break;
-                        case 'partly-cloudy-day':
-                        case 'partly-cloudy-night':
-                            return weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
-                            break;
-                        case 'tornado':
-                            return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
-                            break;
+                switch (icon) {
+                    case 'clear-night':
+                    case 'clear-day':
+                        return weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
+                        break;
+                    case 'rain':
+                        return weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
+                        break;
+                    case 'thunderstorm':
+                    case 'hail':
+                        return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
+                        break;
+                    case 'cloudy':
+                    case 'fog':
+                    case 'windy':
+                        return weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
+                        break;
+                    case 'snow':
+                    case 'sleet':
+                        return weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
+                        break;
+                    case 'partly-cloudy-day':
+                    case 'partly-cloudy-night':
+                        return weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
+                        break;
+                    case 'tornado':
+                        return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
+                        break;
 
-                        default:
+                    default:
 
-                    }
+                }
             }
         });
 
@@ -111,12 +109,12 @@ function geoLocation() {
 // Code to return the celsius converstion
 function convertC() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5/9)) + " °C" + " and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5 / 9)) + " °C" + " and " + description;
 
 }
 
 function convertF() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round((celsius * (9/5)) + 32) + " °F" + " and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round((celsius * (9 / 5)) + 32) + " °F" + " and " + description;
 
 }
