@@ -36,11 +36,15 @@ function geoLocation() {
                 var description = data.currently.summary;
                 var hourlyDescription = data.hourly.summary;
                 var celsius = Math.round((temp - 32) * (5 / 9));
+                var tempFeel = data.currently.apparentTemperature;
+                var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
 
 
                 window.temp = temp;
                 window.description = description;
                 window.celsius = celsius;
+                window.tempFeel = tempFeel;
+                window.tempFeelCelsius = tempFeelCelsius;
 
 
 
