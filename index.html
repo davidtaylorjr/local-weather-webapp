@@ -1,29 +1,31 @@
 <!doctype html>
 <html>
 
-    <head>
-        <title>Your Local Weather</title>
-        <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-        <link rel="stylesheet" type="text/css" href="css/weather-icon-animated.css">
-        <script src="scripts/javascript.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <!--<script src="scripts/skycons.js"></script>-->
-    </head>
+<head>
+    <title>Your Local Weather</title>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="css/weather-icon-animated.css">
+    <script src="scripts/javascript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--<script src="scripts/skycons.js"></script>-->
+</head>
 
-    <body onload="javascript:geoLocation()">
-        <h1 id="pgtitle">Your Local Weather</h1>
-        <div style="text-align:center;" id="locbtn">
-            <!--<button type="button" onclick="geoLocation()">Find Location</button> -->
-        </div>
-        <div id="out">
-        </div>
-        <div id="userAddress">
-        </div>
-        <div id="conditions">
-        </div>
-        <div id="twentyfour">
-        </div>
-        <!--
+<body onload="javascript:geoLocation()">
+    <h1 id="pgtitle">Your Local Weather</h1>
+    <div style="text-align:center;" id="locbtn">
+        <!--<button type="button" onclick="geoLocation()">Find Location</button> -->
+    </div>
+    <div id="out">
+    </div>
+    <div id="userAddress">
+    </div>
+    <div id="conditions">
+    </div>
+    <div id="variables">
+    </div>
+    <div id="twentyfour">
+    </div>
+    <!--
     Below is an example of the css for the weather icons.
     <div class="icon">
         <div class="cloud"></div>
@@ -31,17 +33,17 @@
     </div>
     -->
 
-            <div id="weathercon">
+    <div id="weathercon">
 
 
-            </div>
-        <div class="buttons">
+    </div>
+    <div class="buttons">
 
-            <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
-            <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
+        <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
+        <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
 
-        </div>
+    </div>
 
-    </body>
+</body>
 
 </html>
