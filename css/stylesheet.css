@@ -1,92 +1,108 @@
 html {
-  background: #323232;
+    background: #323232;
 }
 
 #pgtitle {
-  font-family: sans-serif;
-  text-align: center;
-  color: #ffffff;
-  margin-top: 8% 0 0 0;
+    font-family: sans-serif;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 8% 0 0 0;
 }
 
 #out {
-  color: #ffffff;
-  text-align: center;
-  font-family: sans-serif;
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
 }
 
 #conditions {
-  color: #ffffff;
-  text-align: center;
-  font-family: sans-serif;
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
 }
 
 #userAddress {
-  color: #ffffff;
-  text-align: center;
-  font-family: sans-serif;
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
 }
 
 #twentyfour {
-  color: #ffffff;
-  text-align: center;
-  font-family: sans-serif;
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
 }
 
 #weathercon {
-  position: relative !important;
-  top: 50px;
-
+    position: relative !important;
+    top: 50px;
 }
 
 #locbtn {
-  position: relative;
-  margin: 3% auto auto auto;
-  text-align: center;
-
-
+    position: relative;
+    margin: 3% auto auto auto;
+    text-align: center;
 }
 
 .buttons {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 #celsiusbtn {
-  position: relative;
-  top: 8.5em;
-  font-family: sans-serif;
-  background-color: #828282;
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  padding: 10px;
-  float: right;
-  margin: 5px;
+    position: relative;
+    top: 8.5em;
+    font-family: sans-serif;
+    background-color: #828282;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    float: right;
+    margin: 5px;
 }
 
 #fahrenheitbtn {
-  position: relative;
-  top: 8.5em;
-  font-family: sans-serif;
-  background-color: #828282;
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  padding: 10px;
-  float: left;
-  align-items: center;
-  margin: 5px;
+    position: relative;
+    top: 8.5em;
+    font-family: sans-serif;
+    background-color: #828282;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    float: left;
+    align-items: center;
+    margin: 5px;
 }
 
 button {
-  background-color: #3f46a2;
-  border: none;
-  border-radius: 3px;
-  height: 50px;
-  color: white;
-  font-family: sans-serif;
-  font-size: 1em;
-  font-style: normal;
-  padding: 18px;
+    background-color: #3f46a2;
+    border: none;
+    border-radius: 3px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 1em;
+    font-style: normal;
+    padding: 18px;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+#darkskyapi {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#copyright {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
