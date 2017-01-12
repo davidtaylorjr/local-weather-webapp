@@ -38,6 +38,8 @@ function geoLocation() {
                 var celsius = Math.round((temp - 32) * (5 / 9));
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
+                var forecast = data.daily.summary;
+                console.log(forecast);
 
 
                 window.temp = temp;
