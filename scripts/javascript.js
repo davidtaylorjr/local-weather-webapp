@@ -104,7 +104,7 @@ function geoLocation() {
         output.innerHTML = "Unable to retrieve your location";
     }
 
-    userAddress.innerHTML = "<p>Locating…</p>";
+    userAddress.innerHTML = "<p>Grabbing Your Location...</p>";
 
     navigator.geolocation.getCurrentPosition(success, error);
 
