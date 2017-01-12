@@ -46,11 +46,17 @@ function geoLocation() {
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
 
-
+                console.log(data);
 
                 var current = document.getElementById(conditions);
+                var dataPoints = document.getElementById(variables);
 
                 conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
+
+                if (temp != tempFeel) {
+                    variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
+
+                }
 
 
 
@@ -104,7 +110,7 @@ function geoLocation() {
         output.innerHTML = "Unable to retrieve your location";
     }
 
-    userAddress.innerHTML = "<p>Locating…</p>";
+    userAddress.innerHTML = "<p>Grabbing Your Location...</p>";
 
     navigator.geolocation.getCurrentPosition(success, error);
 
