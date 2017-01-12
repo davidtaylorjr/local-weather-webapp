@@ -39,7 +39,7 @@ function geoLocation() {
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
                 var forecast = data.daily.summary;
-                var alert = data.alert.title;
+                //var alert = data.alert.title;
                 console.log(forecast);
                 //console.log(alert); This has been commented out since there are no current alerts.
 
