@@ -31,7 +31,7 @@ To leave suggestions for future feature requests please open an [Issue](https://
 
 ## How To Use
 
-The source code can be found on the releases page or can be cloned and update. The site is built using JavaScript, HTML5 and CSS3. Feel free to modify the code however you would like for your usage but please attribute credit.
+The source code can be found on the releases page or can be cloned and update. The site is built using JavaScript, HTML5 and CSS3. Feel free to modify the code under the terms of the [License](https://github.com/davidtaylorjr/local-weather-webapp/blob/master/LICENSE.txt).
 
 An API key must be obtained from the following sources:
 
