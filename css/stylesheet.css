@@ -7,10 +7,12 @@ html {
     text-align: center;
     color: #ffffff;
     margin-top: 8% 0 0 0;
+    <<<<<<< HEAD
 }
 
 #alert {
     color: rgb(100%, 0%, 0%);
+    =======>>>>>>>20b9a5dc3aaa2ada7faa00ad60df76e758004630
 }
 
 #out {
@@ -90,4 +92,20 @@ button {
     font-size: 1em;
     font-style: normal;
     padding: 18px;
+}
+
+footer {
+    margin-top: 100px;
+    padding: 1rem;
+    text-align: center;
+}
+
+#darkskyapi {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#copyright {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
