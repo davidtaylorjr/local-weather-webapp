@@ -13,6 +13,7 @@ The app pulls data from the [Dark Sky API](http://darksky.net/dev) and provides:
 - Options to change between imperial and metric temperatures
 - If the "feels like" or "apparent" temperature is different that the current outside temperature that will display as well.
 - Weather icons were provided by [Patharanordev](https://github.com/patharanordev) and can be found at his [Github Repository](https://github.com/patharanordev/weather-icon-animated)
+
 ### Current Version
 
 The current release is [v1.1.3](https://github.com/davidtaylorjr/local-weather-webapp/releases/latest) and is on a steady development cycle.
