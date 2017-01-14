@@ -50,6 +50,7 @@ function geoLocation() {
                 window.celsius = celsius;
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
+                window.severe = severe;
 
                 console.log(data);
 
