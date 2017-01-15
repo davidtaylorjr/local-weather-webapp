@@ -125,12 +125,22 @@ function geoLocation() {
 // Code to return the celsius converstion
 function convertC() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round((temp - 32) * (5 / 9)) + " °C" + " and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C" + " and " + description;
+
+    if (temp != tempFeel) {
+        variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeelCelsius) + " °C.";
+
+    }
 
 }
 
 function convertF() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round((celsius * (9 / 5)) + 32) + " °F" + " and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F" + " and " + description;
+
+    if (temp != tempFeel) {
+        variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
+
+    }
 
 }
