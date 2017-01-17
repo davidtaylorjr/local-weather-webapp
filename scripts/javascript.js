@@ -42,6 +42,7 @@ function geoLocation() {
                 var severe = { "title": "Severe Thunderstorm Warning for York County, SC" } //This is only for testing purposes, add the actual API call when ready.
                     //console.log(forecast);
                 console.log(severe);
+                alert(severe.title); // Currently works for popup, need to adjust when api key is figured out.
 
 
 
