@@ -39,8 +39,8 @@ function geoLocation() {
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
                 var forecast = data.daily.summary;
-                var severe = data.alert;
-                //console.log(forecast);
+                var severe = { "title": "Severe Thunderstorm Warning for York County, SC" } //This is only for testing purposes, add the actual API call when ready.
+                    //console.log(forecast);
                 console.log(severe);
 
 
