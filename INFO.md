@@ -1,1 +1,0 @@
-This is the live preview version of the web-app for Github Pages.

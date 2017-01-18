@@ -39,11 +39,13 @@ function geoLocation() {
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
                 var forecast = data.daily.summary;
-                var severe = { "title": "Severe Thunderstorm Warning for York County, SC" } //This is only for testing purposes, add the actual API call when ready.
-                    //console.log(forecast);
-                console.log(severe);
-                alert(severe.title); // Currently works for popup, need to adjust when api key is figured out.
 
+                if (data.hasOwnProperty("alerts")) {
+                    var severe = data.alerts;
+                    var severeAlert = data.alerts.title;
+                        window.severe = severe;
+                        alert(severeAlert);
+                    }
 
 
                 window.temp = temp;
@@ -51,7 +53,7 @@ function geoLocation() {
                 window.celsius = celsius;
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
-                window.severe = severe;
+
 
                 console.log(data);
 
@@ -80,30 +82,30 @@ function geoLocation() {
                     case 'clear-night':
                     case 'clear-day':
                         return weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
-                        break;
+
                     case 'rain':
                         return weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
-                        break;
+
                     case 'thunderstorm':
                     case 'hail':
                         return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
-                        break;
+
                     case 'cloudy':
                     case 'fog':
                     case 'windy':
                         return weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
-                        break;
+
                     case 'snow':
                     case 'sleet':
                         return weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
-                        break;
+
                     case 'partly-cloudy-day':
                     case 'partly-cloudy-night':
                         return weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
-                        break;
+
                     case 'tornado':
                         return weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
-                        break;
+
 
                     default:
 
