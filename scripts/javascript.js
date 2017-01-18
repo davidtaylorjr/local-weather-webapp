@@ -43,7 +43,7 @@ function geoLocation() {
                 if (data.hasOwnProperty("alerts")) {
                     var severe = data.alerts;
                     var severeAlert = data.alerts.title;
-
+                        window.severe = severe;
                         alert(severeAlert);
                     }
 
@@ -53,7 +53,7 @@ function geoLocation() {
                 window.celsius = celsius;
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
-                window.severe = severe;
+
 
                 console.log(data);
 
