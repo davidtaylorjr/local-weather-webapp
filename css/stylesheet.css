@@ -2,11 +2,20 @@ html {
     background: #323232;
 }
 
+a {
+  color: #254ae6 !important;
+  text-decoration: none;
+}
+
 #pgtitle {
     font-family: sans-serif;
     text-align: center;
     color: #ffffff;
     margin-top: 8% 0 0 0;
+}
+
+#alert {
+    color: rgb(100%, 0%, 0%);
 }
 
 #out {
