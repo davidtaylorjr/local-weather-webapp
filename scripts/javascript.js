@@ -13,11 +13,9 @@ function geoLocation() {
 
 
         //Google Maps API to return printed location as opposed to lat/lon coordinates.
-<<<<<<< HEAD
+
         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=YOUR-API-KEY', function(city) {
-=======
-        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=Your-API-Key', function(city) {
->>>>>>> staging
+
 
             var address = city.results[2].formatted_address;
 
@@ -31,11 +29,9 @@ function geoLocation() {
         //current conditions api from Darksky.net and variables for printing inside app.
 
         $.ajax({
-<<<<<<< HEAD
+
             url: 'https://api.darksky.net/forecast/YOUR-API-KEY/' + latitude + ',' + longitude + "?units=us",
-=======
-            url: 'https://api.darksky.net/forecast/Your-API-Key/' + latitude + ',' + longitude + "?units=us",
->>>>>>> staging
+
             dataType: "jsonp",
             success: function(data) {
 
