@@ -42,10 +42,10 @@ function geoLocation() {
 
                 if (data.hasOwnProperty("alerts")) {
                     var severe = data.alerts;
-                    var severeAlert = data.alerts.title;
-                        window.severe = severe;
-                        alert(severeAlert);
-                    }
+                    var severeAlert = data.alerts[0].title;
+                    window.severe = severe;
+                    alert(severeAlert);
+                }
 
 
                 window.temp = temp;
