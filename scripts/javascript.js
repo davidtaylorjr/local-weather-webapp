@@ -64,7 +64,7 @@ function geoLocation() {
                 var current = document.getElementById(conditions);
                 var dataPoints = document.getElementById(variables);
 
-                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description;
+                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description +  "<br><br> Chance of precipitation is " + precipChance;
 
                 if (temp !== tempFeel) {
                     variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
@@ -139,7 +139,7 @@ function geoLocation() {
 // Code to return the celsius converstion
 function convertC() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C and " + description + "<br><br> Chance of precipitation is " + precipChance;
 
     if (temp !== tempFeel) {
         variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeelCelsius) + " °C.";
@@ -150,7 +150,7 @@ function convertC() {
 
 function convertF() {
 
-    conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F and " + description;
+    conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
 
     if (temp !== tempFeel) {
         variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
