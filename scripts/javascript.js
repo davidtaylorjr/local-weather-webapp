@@ -39,6 +39,7 @@ function geoLocation() {
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
                 var forecast = data.daily.summary;
+                var precipChance = (data.currently.precipProbability * 100) + "%";
 
                 if (data.hasOwnProperty("alerts")) {
                     var severe = data.alerts;
@@ -47,12 +48,15 @@ function geoLocation() {
                     alert(severeAlert);
                 }
 
+                
+
 
                 window.temp = temp;
                 window.description = description;
                 window.celsius = celsius;
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
+                window.precipChance = precipChance;
 
 
                 console.log(data);
