@@ -42,6 +42,12 @@ a {
     font-family: sans-serif;
 }
 
+#variables {
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
+}
+
 #weathercon {
     font-size: 6em;
     color: #ffffff;
