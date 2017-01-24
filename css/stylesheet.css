@@ -43,9 +43,9 @@ a {
 }
 
 #weathercon {
-    position: relative !important;
-    top: 50px;
-    margin-bottom: 25px;
+    font-size: 6em;
+    color: #ffffff;
+    text-align: center;
 }
 
 #extended {

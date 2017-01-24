@@ -88,37 +88,55 @@ function geoLocation() {
 
                 switch (icon) {
                     case 'clear-night':
+                        weathercon.innerHTML = '<i class="wi wi-night-clear"></i>';
+                        break;
+
                     case 'clear-day':
-                        weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-day-sunny"></i>';
                         break;
 
                     case 'rain':
-                        weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-showers"></i>';
                         break;
 
                     case 'thunderstorm':
+                        weathercon.innerHTML = '<i class="wi wi-storm-showers"></i>';
+                        break;
+
                     case 'hail':
-                        weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-hail"></i>';
                         break;
 
                     case 'cloudy':
+                        weathercon.innerHTML = '<i class="wi wi-cloudy"></i>';
+                        break;
+
                     case 'fog':
+                        weathercon.innerHTML = '<i class="wi wi-fog"></i>';
+                        break;
+
                     case 'windy':
-                        weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
+                        weathercon.innerHTML = '<i class="wi wi-cloudy-windy"></i>';
                         break;
 
                     case 'snow':
+                        weathercon.innerHTML = '<i class="wi wi-snow"></i>';
+                        break;
+
                     case 'sleet':
-                        weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-sleet"></i>';
                         break;
 
                     case 'partly-cloudy-day':
+                        weathercon.innerHTML = '<i class="wi wi-day-cloudy"></i>';
+                        break;
+
                     case 'partly-cloudy-night':
-                        weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-night-alt-cloudy"></i>';
                         break;
 
                     case 'tornado':
-                        weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
+                        weathercon.innerHTML = '<i class="wi wi-tornado"></i>';
                         break;
 
 
