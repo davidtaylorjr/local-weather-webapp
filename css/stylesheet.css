@@ -50,7 +50,6 @@ a {
 
 #extended {
     position: relative;
-    margin-top: 25px;
     color: #ffffff;
     text-align: center;
     font-family: sans-serif;
@@ -58,7 +57,7 @@ a {
 
 #locbtn {
     position: relative;
-    margin: 3% auto auto auto;
+    margin: auto auto auto auto;
     text-align: center;
 }
 
@@ -69,7 +68,6 @@ a {
 
 #celsiusbtn {
     position: relative;
-    top: 8.5em;
     font-family: sans-serif;
     background-color: #828282;
     color: #ffffff;
@@ -82,7 +80,6 @@ a {
 
 #fahrenheitbtn {
     position: relative;
-    top: 8.5em;
     font-family: sans-serif;
     background-color: #828282;
     color: #ffffff;
@@ -107,7 +104,7 @@ button {
 }
 
 footer {
-    margin-top: 100px;
+    /* margin-top: 100px; */
     padding: 1rem;
     color: #ffffff;
     text-align: center;
