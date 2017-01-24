@@ -38,7 +38,7 @@ function geoLocation() {
                 var celsius = Math.round((temp - 32) * (5 / 9));
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
-                var forecast = data.daily.summary;
+                var extForecast = data.daily.summary;
                 var precipChance = (data.currently.precipProbability * 100) + "%";
 
                 if (data.hasOwnProperty("alerts")) {
@@ -48,7 +48,7 @@ function geoLocation() {
                     alert(severeAlert);
                 }
 
-                
+
 
 
                 window.temp = temp;
@@ -64,12 +64,16 @@ function geoLocation() {
                 var current = document.getElementById(conditions);
                 var dataPoints = document.getElementById(variables);
 
-                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description +  "<br><br> Chance of precipitation is " + precipChance;
+                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
 
                 if (temp !== tempFeel) {
                     variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
 
                 }
+
+                var extendedSummary = document.getElementById(extended);
+
+                extended.innerHTML = "<p>Your extended forecast summary is: \"" + extForecast + "\"";
 
 
 
