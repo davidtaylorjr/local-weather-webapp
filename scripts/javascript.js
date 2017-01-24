@@ -42,7 +42,8 @@ function geoLocation() {
                 var celsius = Math.round((temp - 32) * (5 / 9));
                 var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
-                var forecast = data.daily.summary;
+                var extForecast = data.daily.summary;
+                var precipChance = (data.currently.precipProbability * 100) + "%";
 
                 if (data.hasOwnProperty("alerts")) {
                     var severe = data.alerts;
@@ -52,11 +53,14 @@ function geoLocation() {
                 }
 
 
+
+
                 window.temp = temp;
                 window.description = description;
                 window.celsius = celsius;
                 window.tempFeel = tempFeel;
                 window.tempFeelCelsius = tempFeelCelsius;
+                window.precipChance = precipChance;
 
 
                 console.log(data);
@@ -64,12 +68,16 @@ function geoLocation() {
                 var current = document.getElementById(conditions);
                 var dataPoints = document.getElementById(variables);
 
-                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F" + " and " + description;
+                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
 
-                if (temp != tempFeel) {
+                if (temp !== tempFeel) {
                     variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
 
                 }
+
+                var extendedSummary = document.getElementById(extended);
+
+                extended.innerHTML = "<p>Your extended forecast summary is: \"" + extForecast + "\"";
 
 
 
@@ -84,37 +92,55 @@ function geoLocation() {
 
                 switch (icon) {
                     case 'clear-night':
+                        weathercon.innerHTML = '<i class="wi wi-night-clear"></i>';
+                        break;
+
                     case 'clear-day':
-                        weathercon.innerHTML = '<div class="sun"><div class=rays></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-day-sunny"></i>';
                         break;
 
                     case 'rain':
-                        weathercon.innerHTML = '<div class="cloud"><div class="rain"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-showers"></i>';
                         break;
 
                     case 'thunderstorm':
+                        weathercon.innerHTML = '<i class="wi wi-storm-showers"></i>';
+                        break;
+
                     case 'hail':
-                        weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-hail"></i>';
                         break;
 
                     case 'cloudy':
+                        weathercon.innerHTML = '<i class="wi wi-cloudy"></i>';
+                        break;
+
                     case 'fog':
+                        weathercon.innerHTML = '<i class="wi wi-fog"></i>';
+                        break;
+
                     case 'windy':
-                        weathercon.innerHTML = '<div class="cloud"></div><div class="cloud"></div>';
+                        weathercon.innerHTML = '<i class="wi wi-cloudy-windy"></i>';
                         break;
 
                     case 'snow':
+                        weathercon.innerHTML = '<i class="wi wi-snow"></i>';
+                        break;
+
                     case 'sleet':
-                        weathercon.innerHTML = '<div class="cloud"><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-sleet"></i>';
                         break;
 
                     case 'partly-cloudy-day':
+                        weathercon.innerHTML = '<i class="wi wi-day-cloudy"></i>';
+                        break;
+
                     case 'partly-cloudy-night':
-                        weathercon.innerHTML = '<div class="cloud"></div><div class="sun"><div class="rays"></div></div>';
+                        weathercon.innerHTML = '<i class="wi wi-night-alt-cloudy"></i>';
                         break;
 
                     case 'tornado':
-                        weathercon.innerHTML = '<div class="cloud"><div class ="lightning"><div class="bolt"></div><div class="bolt"></div></div></div><div class="cloud"></div>';
+                        weathercon.innerHTML = '<i class="wi wi-tornado"></i>';
                         break;
 
 
@@ -136,26 +162,30 @@ function geoLocation() {
 
 
 
+
     // Code to return the celsius converstion
     function convertC() {
 
-        conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C" + " and " + description;
 
-        if (temp != tempFeel) {
+        conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C and " + description + "<br><br> Chance of precipitation is " + precipChance;
+
+        if (temp !== tempFeel) {
             variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeelCelsius) + " °C.";
 
-        }
 
+        }
     }
 
     function convertF() {
 
         conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F" + " and " + description;
 
-        if (temp != tempFeel) {
+        conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
+
+        if (temp !== tempFeel) {
             variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
 
-        }
 
+        }
     }
 }

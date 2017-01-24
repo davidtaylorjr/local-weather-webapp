@@ -16,7 +16,8 @@ The app pulls data from the [Dark Sky API](http://darksky.net/dev) and provides:
 
 ### Current Version
 
-The current release is [v1.2.2](https://github.com/davidtaylorjr/local-weather-webapp/releases/latest) and is on a steady development cycle.
+
+The current release is [v1.3](https://github.com/davidtaylorjr/local-weather-webapp/releases/latest) and is on a steady development cycle.
 
 
 
@@ -24,8 +25,8 @@ The current release is [v1.2.2](https://github.com/davidtaylorjr/local-weather-w
 
 Future featrues that are currently planned are:
 
-- Precipitation Chance
-- Extended 3-5 day forecast
+- Location Search
+- Daily Almanac Details
 - And More!
 
 To leave suggestions for future feature requests please open an [Issue](https://github.com/davidtaylorjr/local-weather-webapp/issues)
