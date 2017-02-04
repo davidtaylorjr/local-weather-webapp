@@ -1,0 +1,15 @@
+h1 {
+    color: #ffffff;
+}
+
+#text-primary-custom {
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+footer {
+    color: #ffffff;
+    font-size: small;
+    text-align: center;
+    font-family: sans-serif;
+}
