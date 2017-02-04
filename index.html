@@ -1,60 +1,27 @@
-<!doctype html>
-<html>
+<html ng-app="localWeather">
 
 <head>
     <title>Your Local Weather</title>
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="css/weather-icons.css">
-    <link rel="stylesheet" type="text/css" href="/vendors/bootstrap.min.css">
-    <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon" />
-
+    <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="css/weather-icons.css">
+    <script src="vendors/angular/angular.js"></script>
+    <script src="vendors/angular-route/angular-route.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/WxController.js"></script>
 </head>
 
-<body onload="javascript:geoLocation()">
-    <div id="alert">
-    </div>
-    <h1 id="pgtitle">Your Local Weather</h1>
-    <div style="text-align:center;" id="locbtn">
-        <!--<button type="button" onclick="geoLocation()">Find Location</button> -->
-    </div>
-    <div id="out">
-    </div>
-    <div id="userAddress">
-    </div>
-    <div id="conditions">
-    </div>
-    <div id="variables">
-    </div>
-    <div id="twentyfour">
-    </div>
+<body>
+    <h1 class="text-primary" style="text-align: center">Your Local Weather</h1>
 
 
-    <div id="weathercon">
 
-
-    </div>
-    <div id="extended">
-
-    </div>
-    <div class="buttons">
-
-        <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
-        <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
-
-    </div>
     <footer>
-        <div id="darkskyapi">
+        <div class="copyright">Copyright 2017, David Taylor Jr.</div>
+        <div class="darksky">
             <p>Weather Data provided by <a href="https://darksky.net/dev">Dark Sky</a> <img src="assets/images/darkskylogo.png" alt="Dark Sky Logo" height="28" width="28"></p>
-
         </div>
-        <div id="copyright">
-            <p>Copyright 2017, David Taylor Jr.</div>
     </footer>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!--<script src="scripts/skycons.js"></script>-->
-    <script src="scripts/javascript.js"></script>
 </body>
-
 
 </html>
