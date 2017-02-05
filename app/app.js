@@ -6,7 +6,7 @@
         $routeProvider
             .when("/main", {
                 templateUrl: "app/views/main.html",
-                controller: "WxController"
+                controller: "MainController"
             });
     });
 

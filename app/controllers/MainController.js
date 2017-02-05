@@ -2,7 +2,7 @@
 
     var app = angular.module('localWeather');
 
-    var WxController = function($scope, $http, $location) {
+    var MainController = function($scope, $http, $location) {
 
 
 
