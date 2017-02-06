@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="localWeather" style="background-color:#111111">
+<html style="background-color:#111111">
 
 <head>
     <title>Your Local Weather</title>
@@ -8,18 +8,22 @@
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="css/weather-icons.css">
     <script src="vendors/angular/angular.js"></script>
-    <script src="vendors/angular-route/angular-route.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/controllers/MainController.js"></script>
-    <script src="app/services/location.js"></script>
-    <script src="app/services/weather.js"></script>
+    <script src="vendors/angular-dark-sky/angular-dark-sky.js"></script>
 </head>
 
-<body style="background-color:#111111">
+<body ng-app="localWeather" class="body">
     <h1 class="text-primary" id="text-primary-custom" style="text-align: center">Your Local Weather</h1>
 
 
-    <div ng-view></div>
+    <div ng-controller="MainController">
+        <p> {{ userAddress.results[2].formatted_address }}
+        </p>
+
+        {{ weather }}
+
+
+    </div>
 
     <footer>
         <div class="copyright">Copyright 2017, David Taylor Jr.</div>
