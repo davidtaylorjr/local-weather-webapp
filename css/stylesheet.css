@@ -21,3 +21,12 @@ footer {
     font-family: sans-serif;
     font-size: 2em;
 }
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
