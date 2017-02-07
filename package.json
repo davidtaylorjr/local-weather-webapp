@@ -22,7 +22,8 @@
         "bootstrap": "^3.3.7",
         "angular": "1.5.7",
         "angular-route": "1.5.7",
-        "angular-dark-sky": "0.0.1"
+        "jquery": "^3.1.1"
+
     },
 
     "devDependencies": {
@@ -35,7 +36,7 @@
             "bootstrap",
             "angular",
             "angular-route",
-            "angular-dark-sky"
+            "jquery"
         ]
     }
 }
