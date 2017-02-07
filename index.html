@@ -20,10 +20,13 @@
         <p> {{ userAddress.results[2].formatted_address }}
         </p>
 
-        {{ weather }}
+        {{currentWeather | json}}
 
 
     </div>
+
+
+
 
     <footer>
         <div class="copyright">Copyright 2017, David Taylor Jr.</div>
