@@ -12,15 +12,16 @@
     <script src="app/app.js"></script>
 </head>
 
-<body ng-app="localWeather" class="body">
+<body ng-app="localWeather" class="body" ng-cloak>
     <h1 class="text-primary" id="text-primary-custom" style="text-align: center">Your Local Weather</h1>
 
 
     <div ng-controller="MainController">
+        <p>{{currentWeather.time * 1000 | date:'fullDate'}}</p>
         <p> {{ userAddress.results[2].formatted_address }}
         </p>
 
-        {{currentWeather | json}}
+        <p>{{currentWeather.temperature | number:0}}</p>
 
 
     </div>
