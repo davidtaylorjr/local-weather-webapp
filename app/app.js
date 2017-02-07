@@ -22,6 +22,8 @@ var MainController = function($scope, $http) {
             success: function(data) {
                 $scope.currentWeather = data.currently;
                 console.log($scope.currentWeather);
+                $scope.$apply();
+
             }
         });
 
