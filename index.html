@@ -21,7 +21,10 @@
         <p ng-show="currentWeather.time">{{currentWeather.time * 1000 | date:'fullDate'}}</p>
 
         <p ng-show="currentWeather.time">Current conditions at {{currentWeather.time * 1000 | date:'shortTime'}} for {{ userAddress.results[2].formatted_address }} </p>
-        <p>{{currentWeather.temperature | number:0}}</p>
+
+        <p ng-show="currentWeather">
+            {{currentWeather.summary}} <br /> Temperature: {{currentWeather.temperature | number:0}} °F <br /> Humidity: {{currentWeather.humidity * 100 | number:0}}% <br /> Wind Speed: {{currentWeather.windSpeed | number:0}} mph
+        </p>
 
 
     </div>
