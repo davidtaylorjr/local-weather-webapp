@@ -17,10 +17,10 @@
 
 
     <div ng-controller="MainController">
+        <p ng-hide="currentWeather.time"> Grabbing your location...</p>
         <p ng-show="currentWeather.time">{{currentWeather.time * 1000 | date:'fullDate'}}</p>
-        <p> {{ userAddress.results[2].formatted_address }}
-        </p>
 
+        <p ng-show="currentWeather.time">Current conditions at {{currentWeather.time * 1000 | date:'shortTime'}} for {{ userAddress.results[2].formatted_address }} </p>
         <p>{{currentWeather.temperature | number:0}}</p>
 
 
