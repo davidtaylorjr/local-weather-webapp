@@ -5,7 +5,7 @@ app.config(function($routeProvider) {
 
     $routeProvider
         .when("/", {
-            templateUrl: "index.html",
-            controller: "MainController"
+            templateUrl: "app/views/main.html",
+            controller: ""
         });
 });

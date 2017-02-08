@@ -1,0 +1,5 @@
+<div id="weather">
+    <p ng-show="currentWeather">
+        {{currentWeather.summary}} <br /> Temperature: {{currentWeather.temperature | number:0}} °F <br /> Humidity: {{currentWeather.humidity * 100 | number:0}}% <br /> Wind Speed: {{currentWeather.windSpeed | number:0}} mph
+    </p>
+</div>

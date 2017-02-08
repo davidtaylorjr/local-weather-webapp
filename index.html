@@ -7,10 +7,12 @@
     <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="css/weather-icons.css">
+    <link rel="icon" type="image/ico" href="assets/images/favicon.ico">
     <script src="vendors/angular/angular.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <script src="app/app.js"></script>
+    <!-- <script src="app/services/weather.js"></script> -->
     <script src="app/controllers/MainController.js"></script>
 </head>
 
@@ -24,10 +26,7 @@
 
         <p ng-show="currentWeather.time">Current conditions at {{currentWeather.time * 1000 | date:'shortTime'}} for {{ userAddress.results[2].formatted_address }} </p>
 
-        <p ng-show="currentWeather">
-            {{currentWeather.summary}} <br /> Temperature: {{currentWeather.temperature | number:0}} °F <br /> Humidity: {{currentWeather.humidity * 100 | number:0}}% <br /> Wind Speed: {{currentWeather.windSpeed | number:0}} mph
-        </p>
-
+        <div ng-view></div>
 
     </div>
 
