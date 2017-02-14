@@ -1,4 +1,4 @@
 .vscode
 vendors
 node_modules
-app/jsconfig.json
+jsconfig.json
