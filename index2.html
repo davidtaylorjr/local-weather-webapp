@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html style="background-color:#111111">
+
+<head>
+    <title>Your Local Weather</title>
+    <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="css/weather-icons.css">
+    <link rel="icon" type="image/ico" href="assets/images/favicon.ico">
+    <script src="vendors/angular/angular.js"></script>
+    <script src="vendors/angular-route/angular-route.min.js"></script>
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/services/weather.js"></script>
+    <script src="app/controllers/MainController.js"></script>
+</head>
+
+<body ng-app="localWeather" class="body" ng-cloak>
+    <h1 class="text-uppercase text-center">Your Local Weather</h1>
+    <p class="lead text-center">Current conditions for {{location}} </p>
+    <p class="lead text-center">{{date}} </p>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Temperature </td>
+                </tr>
+                <tr>
+                    <td>Humidity </td>
+                </tr>
+                <tr>
+                    <td>Wind Speed</td>
+                </tr>
+                <tr>
+                    <td>Precipitation Chance</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div role="group" class="btn-group btn-group-justified"><a class="btn btn-default" role="button" href="#">Celcius </a><a class="btn btn-default" role="button"
+                            href="#">Fahrenheit </a></div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div></div>
+    <div role="group" class="btn-group"></div>
+    <h2 class="text-center">Your Extended Forecast</h2>
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-4 item social"><a href="https://github.com/davidtaylorjr/local-weather-webapp" target="_blank"><i class="icon ion-social-github"></i></a></div>
+                </div>
+                <p class="text-center">Weather data provided by <a href="http://darksky.net/dev" target="_blank">Dark Sky API</a>
+                    <a href="http://darksky.com/dev" target="_blank"> </a>
+                </p>
+                <p class="copyright">David Taylor, Jr. © 2017</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
