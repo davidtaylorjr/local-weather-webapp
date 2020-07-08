@@ -20,7 +20,7 @@
             
             var timezone = data.timezone;
             var temperature = data.current.temp;
-            console.log(temperature)
+            console.log(data)
         }
     }
 
