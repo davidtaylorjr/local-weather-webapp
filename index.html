@@ -1,7 +1,9 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Local Weather</title>
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="css/weather-icons.css">
@@ -9,12 +11,11 @@
 
 </head>
 
-<body onload="javascript:geoLocation()">
+<body onload="geoLocation()">
     <div id="alert">
     </div>
     <h1 id="pgtitle">Your Local Weather</h1>
     <div style="text-align:center;" id="locbtn">
-        <!--<button type="button" onclick="geoLocation()">Find Location</button> -->
     </div>
     <div id="out">
     </div>
@@ -37,22 +38,21 @@
     </div>
     <div class="buttons">
 
-        <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
-        <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
+        <button type="button" id="celsiusbtn" onclick="convertC()">&#176;C</button>
+        <button type="button" id="fahrenheitbtn" onclick="convertF()">&#176;F</button>
 
     </div>
     <footer>
-        <div id="darkskyapi">
-            <p>Weather Data provided by <a href="https://darksky.net/dev">Dark Sky</a> <img src="assets/images/darkskylogo.png" alt="Dark Sky Logo" height="28" width="28"></p>
-
+        <div id="weatherapi">
+            <p>Weather Data provided by <a href="https://open-meteo.com/">Open-Meteo</a></p>
         </div>
         <div id="copyright">
-            <p>Copyright 2017, David Taylor Jr.</div>
+            <p>Copyright 2026, David Taylor Jr.</p>
+        </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!--<script src="scripts/skycons.js"></script>-->
-    <script src="scripts/javascript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts/javascript.js?v=3"></script>
 </body>
 
 
