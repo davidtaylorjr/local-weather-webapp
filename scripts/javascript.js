@@ -1,3 +1,40 @@
+var weatherData = {
+    temp: null,
+    celsius: null,
+    tempFeel: null,
+    tempFeelCelsius: null,
+    description: null,
+    precipChance: null
+};
+
+function getWeatherDescription(code, isDay) {
+    if (code === 0) return isDay ? 'Clear' : 'Clear Night';
+    if (code === 1) return 'Mainly Clear';
+    if (code === 2) return 'Partly Cloudy';
+    if (code === 3) return 'Overcast';
+    if (code === 45 || code === 48) return 'Foggy';
+    if (code >= 51 && code <= 55) return 'Drizzle';
+    if (code >= 61 && code <= 65) return 'Rain';
+    if (code >= 71 && code <= 77) return 'Snow';
+    if (code >= 80 && code <= 82) return 'Rain Showers';
+    if (code >= 85 && code <= 86) return 'Snow Showers';
+    if (code === 95) return 'Thunderstorm';
+    if (code >= 96) return 'Thunderstorm with Hail';
+    return 'Unknown';
+}
+
+function getWeatherIcon(code, isDay) {
+    if (code === 0) return isDay ? 'wi-day-sunny' : 'wi-night-clear';
+    if (code <= 2) return isDay ? 'wi-day-cloudy' : 'wi-night-alt-cloudy';
+    if (code === 3) return 'wi-cloudy';
+    if (code === 45 || code === 48) return 'wi-fog';
+    if (code >= 51 && code <= 65) return 'wi-showers';
+    if (code >= 71 && code <= 86) return 'wi-snow';
+    if (code === 95) return 'wi-storm-showers';
+    if (code >= 96) return 'wi-hail';
+    return 'wi-cloudy';
+}
+
 function geoLocation() {
     var output = document.getElementById("out");
 
@@ -6,186 +43,117 @@ function geoLocation() {
         return;
     }
 
-    function success(position) {
+    document.getElementById("userAddress").innerHTML = "<p>Grabbing Your Location...</p>";
+
+    navigator.geolocation.getCurrentPosition(function(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
 
+        // Reverse geocoding via Nominatim (OpenStreetMap) — no API key required
+        $.getJSON('https://nominatim.openstreetmap.org/reverse?lat=' + latitude + '&lon=' + longitude + '&format=json')
+            .done(function(geo) {
+                var addr = geo.address || {};
+                var city = addr.city || addr.town || addr.village || addr.county || geo.display_name;
+                var region = addr.state ? ', ' + addr.state : '';
+                document.getElementById("userAddress").innerHTML = "<p>Current conditions for " + city + region + "</p>";
+            })
+            .fail(function() {
+                document.getElementById("userAddress").innerHTML = "<p>Current conditions for " + latitude.toFixed(4) + ", " + longitude.toFixed(4) + "</p>";
+            });
 
+        // Weather data from Open-Meteo — free, no API key required
+        var apiUrl = 'https://api.open-meteo.com/v1/forecast' +
+            '?latitude=' + latitude + '&longitude=' + longitude +
+            '&current=temperature_2m,apparent_temperature,precipitation_probability,weather_code,is_day' +
+            '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
+            '&hourly=weather_code' +
+            '&temperature_unit=fahrenheit&timezone=auto&forecast_days=7';
 
-        //Google Maps API to return printed location as opposed to lat/lon coordinates.
-
-
-        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=YOUR-API-KEY', function(city) {
-
-
-            var address = city.results[2].formatted_address;
-
-
-            var userAddressObj = document.getElementById(userAddress);
-
-            userAddress.innerHTML = "<p>Current condtions for " + address;
-
-        });
-
-        //current conditions api from Darksky.net and variables for printing inside app.
-
-        $.ajax({
-            url: 'https://api.darksky.net/forecast/YOUR-API-KEY/' + latitude + ',' + longitude + '?units=us',
-
-            dataType: "jsonp",
-            success: function(data) {
-
-
-                var temp = data.currently.temperature;
-                var description = data.currently.summary;
-                var hourlyDescription = data.hourly.summary;
+        $.getJSON(apiUrl)
+            .done(function(data) {
+                var temp = data.current.temperature_2m;
+                var tempFeel = data.current.apparent_temperature;
+                var weatherCode = data.current.weather_code;
+                var isDay = data.current.is_day === 1;
+                var precipChance = data.current.precipitation_probability + "%";
                 var celsius = Math.round((temp - 32) * (5 / 9));
-                var tempFeel = data.currently.apparentTemperature;
                 var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
-                var extForecast = data.daily.summary;
-                var precipChance = (data.currently.precipProbability * 100) + "%";
+                var description = getWeatherDescription(weatherCode, isDay);
 
-                if (data.hasOwnProperty("alerts")) {
-                    var severe = data.alerts;
-                    var severeAlert = data.alerts[0].title;
-                    window.severe = severe;
-                    alert(severeAlert);
+                // Find the most common weather code over the next 12 hours
+                var currentHour = new Date().getHours();
+                var nextHourCodes = data.hourly.weather_code.slice(currentHour, currentHour + 12);
+                var codeCounts = {};
+                nextHourCodes.forEach(function(c) { codeCounts[c] = (codeCounts[c] || 0) + 1; });
+                var dominantCode = parseInt(Object.keys(codeCounts).reduce(function(a, b) {
+                    return codeCounts[a] > codeCounts[b] ? a : b;
+                }), 10) || weatherCode;
+                var hourlyDescription = "Expect " + getWeatherDescription(dominantCode, true).toLowerCase() + " conditions over the next 12 hours.";
+
+                // Build day-by-day extended forecast from daily data (skip today at index 0)
+                var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                var extParts = data.daily.time.slice(1, 7).map(function(date, i) {
+                    var d = new Date(date + 'T12:00:00');
+                    var dayName = days[d.getDay()];
+                    var desc = getWeatherDescription(data.daily.weather_code[i + 1], true).toLowerCase();
+                    var hi = Math.round(data.daily.temperature_2m_max[i + 1]);
+                    var lo = Math.round(data.daily.temperature_2m_min[i + 1]);
+                    return dayName + ": " + desc + " (" + hi + "°F / " + lo + "°F)";
+                });
+
+                weatherData.temp = temp;
+                weatherData.celsius = celsius;
+                weatherData.tempFeel = tempFeel;
+                weatherData.tempFeelCelsius = tempFeelCelsius;
+                weatherData.description = description;
+                weatherData.precipChance = precipChance;
+
+                document.getElementById("conditions").innerHTML =
+                    "<p>It is currently " + Math.round(temp) + " °F and " + description +
+                    "<br><br>Chance of precipitation is " + precipChance + "</p>";
+
+                if (Math.round(temp) !== Math.round(tempFeel)) {
+                    document.getElementById("variables").innerHTML =
+                        "<p>It feels like it is " + Math.round(tempFeel) + " °F.</p>";
                 }
 
+                document.getElementById("twentyfour").innerHTML = "<p>" + hourlyDescription + "</p>";
 
+                document.getElementById("extended").innerHTML =
+                    "<p>Your extended forecast: " + extParts.join(" &bull; ") + "</p>";
 
+                var iconClass = getWeatherIcon(weatherCode, isDay);
+                document.getElementById("weathercon").innerHTML = '<i class="wi ' + iconClass + '"></i>';
+            })
+            .fail(function() {
+                document.getElementById("out").innerHTML = "<p>Unable to retrieve weather data. Please try again.</p>";
+            });
 
-                window.temp = temp;
-                window.description = description;
-                window.celsius = celsius;
-                window.tempFeel = tempFeel;
-                window.tempFeelCelsius = tempFeelCelsius;
-                window.precipChance = precipChance;
+    }, function() {
+        output.innerHTML = "<p>Unable to retrieve your location</p>";
+    });
+}
 
+function convertC() {
+    if (weatherData.temp === null) return;
+    document.getElementById("conditions").innerHTML =
+        "<p>It is currently " + weatherData.celsius + " °C and " + weatherData.description +
+        "<br><br>Chance of precipitation is " + weatherData.precipChance + "</p>";
 
-                console.log(data);
-
-                var current = document.getElementById(conditions);
-                var dataPoints = document.getElementById(variables);
-
-                conditions.innerHTML = "<p>It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
-
-                if (temp !== tempFeel) {
-                    variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
-
-                }
-
-                var extendedSummary = document.getElementById(extended);
-
-                extended.innerHTML = "<p>Your extended forecast summary is: \"" + extForecast + "\"";
-
-
-
-                var hourly = document.getElementById(twentyfour);
-
-                twentyfour.innerHTML = "<p> Expect " + hourlyDescription;
-
-                var weatherIcon = document.getElementById(weathercon);
-
-                // switch to generate weather icon based on current conditions
-                var icon = data.currently.icon;
-
-                switch (icon) {
-                    case 'clear-night':
-                        weathercon.innerHTML = '<i class="wi wi-night-clear"></i>';
-                        break;
-
-                    case 'clear-day':
-                        weathercon.innerHTML = '<i class="wi wi-day-sunny"></i>';
-                        break;
-
-                    case 'rain':
-                        weathercon.innerHTML = '<i class="wi wi-showers"></i>';
-                        break;
-
-                    case 'thunderstorm':
-                        weathercon.innerHTML = '<i class="wi wi-storm-showers"></i>';
-                        break;
-
-                    case 'hail':
-                        weathercon.innerHTML = '<i class="wi wi-hail"></i>';
-                        break;
-
-                    case 'cloudy':
-                        weathercon.innerHTML = '<i class="wi wi-cloudy"></i>';
-                        break;
-
-                    case 'fog':
-                        weathercon.innerHTML = '<i class="wi wi-fog"></i>';
-                        break;
-
-                    case 'windy':
-                        weathercon.innerHTML = '<i class="wi wi-cloudy-windy"></i>';
-                        break;
-
-                    case 'snow':
-                        weathercon.innerHTML = '<i class="wi wi-snow"></i>';
-                        break;
-
-                    case 'sleet':
-                        weathercon.innerHTML = '<i class="wi wi-sleet"></i>';
-                        break;
-
-                    case 'partly-cloudy-day':
-                        weathercon.innerHTML = '<i class="wi wi-day-cloudy"></i>';
-                        break;
-
-                    case 'partly-cloudy-night':
-                        weathercon.innerHTML = '<i class="wi wi-night-alt-cloudy"></i>';
-                        break;
-
-                    case 'tornado':
-                        weathercon.innerHTML = '<i class="wi wi-tornado"></i>';
-                        break;
-
-
-                    default:
-
-                }
-            }
-        });
-
+    if (Math.round(weatherData.temp) !== Math.round(weatherData.tempFeel)) {
+        document.getElementById("variables").innerHTML =
+            "<p>It feels like it is " + weatherData.tempFeelCelsius + " °C.</p>";
     }
+}
 
-    function error() {
-        output.innerHTML = "Unable to retrieve your location";
-    }
+function convertF() {
+    if (weatherData.temp === null) return;
+    document.getElementById("conditions").innerHTML =
+        "<p>It is currently " + Math.round(weatherData.temp) + " °F and " + weatherData.description +
+        "<br><br>Chance of precipitation is " + weatherData.precipChance + "</p>";
 
-    userAddress.innerHTML = "<p>Grabbing Your Location...</p>";
-
-    navigator.geolocation.getCurrentPosition(success, error);
-
-
-
-
-    // Code to return the celsius converstion
-    function convertC() {
-
-
-        conditions.innerHTML = "<p> It is currently " + Math.round(celsius) + " °C and " + description + "<br><br> Chance of precipitation is " + precipChance;
-
-        if (temp !== tempFeel) {
-            variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeelCelsius) + " °C.";
-
-
-        }
-    }
-
-    function convertF() {
-
-        conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F" + " and " + description;
-
-        conditions.innerHTML = "<p> It is currently " + Math.round(temp) + " °F and " + description + "<br><br> Chance of precipitation is " + precipChance;
-
-        if (temp !== tempFeel) {
-            variables.innerHTML = "<p> It feels like it is " + Math.round(tempFeel) + " °F.";
-
-
-        }
+    if (Math.round(weatherData.temp) !== Math.round(weatherData.tempFeel)) {
+        document.getElementById("variables").innerHTML =
+            "<p>It feels like it is " + Math.round(weatherData.tempFeel) + " °F.</p>";
     }
 }
