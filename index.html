@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="css/weather-icons.css">
     <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 <body onload="geoLocation()">
@@ -69,7 +70,16 @@
 
         <div id="today-summary"></div>
 
+        <div id="forecast-tabs">
+            <button class="tab-btn active" id="tab-hourly" onclick="switchForecastTab('hourly')">Hourly</button>
+            <button class="tab-btn" id="tab-daily" onclick="switchForecastTab('daily')">10-Day</button>
+        </div>
         <div id="forecast-strip"></div>
+
+        <div id="radar-section">
+            <button id="radar-toggle" onclick="toggleRadar()">Show Radar</button>
+            <div id="radar-map" style="display:none"></div>
+        </div>
 
         <div id="out"></div>
 
@@ -85,7 +95,8 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="scripts/javascript.js?v=4"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="scripts/javascript.js?v=5"></script>
 </body>
 
 </html>
