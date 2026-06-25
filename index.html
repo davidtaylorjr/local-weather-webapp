@@ -8,52 +8,84 @@
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="css/weather-icons.css">
     <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon" />
-
 </head>
 
 <body onload="geoLocation()">
-    <div id="alert">
-    </div>
-    <h1 id="pgtitle">Your Local Weather</h1>
-    <div style="text-align:center;" id="locbtn">
-    </div>
-    <div id="out">
-    </div>
-    <div id="userAddress">
-    </div>
-    <div id="conditions">
-    </div>
-    <div id="variables">
-    </div>
-    <div id="twentyfour">
-    </div>
 
-
-    <div id="weathercon">
-
-
-    </div>
-    <div id="extended">
-
-    </div>
-    <div class="buttons">
-
-        <button type="button" id="celsiusbtn" onclick="convertC()">°C</button>
-        <button type="button" id="fahrenheitbtn" onclick="convertF()">°F</button>
-
-    </div>
-    <footer>
-        <div id="weatherapi">
-            <p>Weather Data provided by <a href="https://open-meteo.com/">Open-Meteo</a></p>
+    <div id="loading">
+        <div class="loading-inner">
+            <i class="wi wi-day-sunny loading-icon"></i>
+            <p>Grabbing Your Location...</p>
         </div>
-        <div id="copyright">
-            <p>Copyright 2026, David Taylor Jr.</p>
+    </div>
+
+    <div id="app" style="display:none">
+
+        <header>
+            <h1 id="pgtitle">Your Local Weather</h1>
+            <div id="unit-toggle">
+                <button id="fahrenheitbtn" class="active" onclick="convertF()">°F</button>
+                <button id="celsiusbtn" onclick="convertC()">°C</button>
+            </div>
+        </header>
+
+        <div id="search-bar">
+            <input type="text" id="location-input" placeholder="Search a city..." />
+            <button id="search-btn" onclick="searchLocation()" title="Search">&#128269;</button>
+            <button id="gps-btn" onclick="useGPS()" title="Use my location">&#128205;</button>
         </div>
-    </footer>
+
+        <div id="userAddress"></div>
+
+        <div id="hero-card" class="card">
+            <div id="weathercon"></div>
+            <div id="hero-temp"></div>
+            <div id="description"></div>
+            <div id="hero-hi-lo"></div>
+        </div>
+
+        <div id="detail-grid">
+            <div class="detail-card card">
+                <i class="wi wi-thermometer"></i>
+                <div class="label">Feels Like</div>
+                <div id="detail-feels" class="value"></div>
+            </div>
+            <div class="detail-card card">
+                <i class="wi wi-umbrella"></i>
+                <div class="label">Precipitation</div>
+                <div id="detail-precip" class="value"></div>
+            </div>
+            <div class="detail-card card">
+                <i class="wi wi-humidity"></i>
+                <div class="label">Humidity</div>
+                <div id="detail-humidity" class="value"></div>
+            </div>
+            <div class="detail-card card">
+                <i class="wi wi-strong-wind"></i>
+                <div class="label">Wind</div>
+                <div id="detail-wind" class="value"></div>
+            </div>
+        </div>
+
+        <div id="today-summary"></div>
+
+        <div id="forecast-strip"></div>
+
+        <div id="out"></div>
+
+        <footer>
+            <div id="weatherapi">
+                <p>Weather Data provided by <a href="https://open-meteo.com/">Open-Meteo</a></p>
+            </div>
+            <div id="copyright">
+                <p>Copyright 2026, David Taylor Jr.</p>
+            </div>
+        </footer>
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="scripts/javascript.js"></script>
+    <script src="scripts/javascript.js?v=4"></script>
 </body>
-
 
 </html>

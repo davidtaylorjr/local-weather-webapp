@@ -4,8 +4,18 @@ var weatherData = {
     tempFeel: null,
     tempFeelCelsius: null,
     description: null,
-    precipChance: null
+    precipChance: null,
+    humidity: null,
+    windSpeed: null,
+    todayHiF: null,
+    todayLoF: null,
+    todayHiC: null,
+    todayLoC: null,
+    iconClass: null,
+    forecastDays: []
 };
+
+var currentUnit = 'F';
 
 function getWeatherDescription(code, isDay) {
     if (code === 0) return isDay ? 'Clear' : 'Clear Night';
@@ -35,142 +45,205 @@ function getWeatherIcon(code, isDay) {
     return 'wi-cloudy';
 }
 
-function geoLocation() {
-    var output = document.getElementById("out");
+function toC(f) { return Math.round((f - 32) * 5 / 9); }
 
+function buildForecastStrip(unit) {
+    var html = '';
+    for (var i = 0; i < weatherData.forecastDays.length; i++) {
+        var day = weatherData.forecastDays[i];
+        var hi = unit === 'C' ? day.hiC : day.hiF;
+        var lo = unit === 'C' ? day.loC : day.loF;
+        var deg = unit === 'C' ? '°C' : '°F';
+        html += '<div class="forecast-day">' +
+            '<div class="day-name">' + day.dayName + '</div>' +
+            '<i class="wi ' + day.iconClass + '"></i>' +
+            '<div class="hi-lo"><span class="hi">' + hi + deg + '</span><br>' + lo + deg + '</div>' +
+            '</div>';
+    }
+    document.getElementById('forecast-strip').innerHTML = html;
+}
+
+function renderWeather(unit) {
+    var temp = unit === 'C' ? weatherData.celsius : Math.round(weatherData.temp);
+    var tempFeel = unit === 'C' ? weatherData.tempFeelCelsius : Math.round(weatherData.tempFeel);
+    var hi = unit === 'C' ? weatherData.todayHiC : weatherData.todayHiF;
+    var lo = unit === 'C' ? weatherData.todayLoC : weatherData.todayLoF;
+    var deg = unit === 'C' ? '°C' : '°F';
+
+    document.getElementById('hero-temp').textContent = temp + deg;
+    document.getElementById('hero-hi-lo').textContent = 'H: ' + hi + deg + '  /  L: ' + lo + deg;
+    document.getElementById('detail-feels').textContent = tempFeel + deg;
+
+    buildForecastStrip(unit);
+}
+
+function showApp() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('app').style.display = '';
+}
+
+function setUnit(unit) {
+    currentUnit = unit;
+    document.getElementById('fahrenheitbtn').classList.toggle('active', unit === 'F');
+    document.getElementById('celsiusbtn').classList.toggle('active', unit === 'C');
+    renderWeather(unit);
+}
+
+function convertF() { setUnit('F'); }
+function convertC() { setUnit('C'); }
+
+function geoLocation() { useGPS(); }
+
+function useGPS() {
     if (!navigator.geolocation) {
-        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+        showApp();
+        document.getElementById('out').innerHTML = '<p>Geolocation is not supported by your browser.</p>';
         return;
     }
-
-    document.getElementById("userAddress").innerHTML = "<p>Grabbing Your Location...</p>";
+    document.getElementById('loading').style.display = '';
+    document.getElementById('app').style.display = 'none';
 
     navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
 
-        document.getElementById("conditions").innerHTML = "<p>Loading weather data...</p>";
-
-        // Reverse geocoding via Nominatim (OpenStreetMap) — no API key required
+        // Reverse geocode for display name
         $.ajax({
             url: 'https://nominatim.openstreetmap.org/reverse',
-            data: { lat: latitude, lon: longitude, format: 'json' },
+            data: { lat: lat, lon: lon, format: 'json' },
             dataType: 'json',
             timeout: 8000,
             success: function(geo) {
+                var locationName;
                 try {
                     var addr = (geo && geo.address) ? geo.address : {};
                     var city = addr.city || addr.town || addr.village || addr.county;
                     var region = addr.state ? ', ' + addr.state : '';
-                    var location = city ? (city + region) : (geo.display_name || (latitude.toFixed(4) + ', ' + longitude.toFixed(4)));
-                    document.getElementById("userAddress").innerHTML = "<p>Current conditions for " + location + "</p>";
+                    locationName = city ? (city + region) : (geo.display_name || (lat.toFixed(4) + ', ' + lon.toFixed(4)));
                 } catch(e) {
-                    document.getElementById("userAddress").innerHTML = "<p>Current conditions for " + latitude.toFixed(4) + ", " + longitude.toFixed(4) + "</p>";
+                    locationName = lat.toFixed(4) + ', ' + lon.toFixed(4);
                 }
+                fetchWeather(lat, lon, locationName);
             },
             error: function() {
-                document.getElementById("userAddress").innerHTML = "<p>Current conditions for " + latitude.toFixed(4) + ", " + longitude.toFixed(4) + "</p>";
+                fetchWeather(lat, lon, lat.toFixed(4) + ', ' + lon.toFixed(4));
             }
         });
-
-        // Weather data from Open-Meteo — free, no API key required
-        var apiUrl = 'https://api.open-meteo.com/v1/forecast' +
-            '?latitude=' + latitude +
-            '&longitude=' + longitude +
-            '&current=temperature_2m,apparent_temperature,precipitation_probability,weather_code,is_day' +
-            '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
-            '&temperature_unit=fahrenheit&timezone=auto&forecast_days=7';
-
-        $.ajax({
-            url: apiUrl,
-            dataType: 'json',
-            timeout: 15000,
-            success: function(data) {
-                try {
-                    var current = data.current;
-                    var temp = current.temperature_2m;
-                    var tempFeel = current.apparent_temperature;
-                    var weatherCode = current.weather_code;
-                    var isDay = current.is_day === 1;
-                    var precipChance = current.precipitation_probability + "%";
-                    var celsius = Math.round((temp - 32) * (5 / 9));
-                    var tempFeelCelsius = Math.round((tempFeel - 32) * (5 / 9));
-                    var description = getWeatherDescription(weatherCode, isDay);
-
-                    // Today's overview from daily data (index 0)
-                    var todayCode = data.daily.weather_code[0];
-                    var hourlyDescription = "Expect " + getWeatherDescription(todayCode, true).toLowerCase() + " conditions throughout today.";
-
-                    // Build day-by-day extended forecast (skip today at index 0)
-                    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                    var extParts = [];
-                    for (var i = 1; i < data.daily.time.length; i++) {
-                        var d = new Date(data.daily.time[i] + 'T12:00:00');
-                        var dayName = dayNames[d.getDay()];
-                        var desc = getWeatherDescription(data.daily.weather_code[i], true).toLowerCase();
-                        var hi = Math.round(data.daily.temperature_2m_max[i]);
-                        var lo = Math.round(data.daily.temperature_2m_min[i]);
-                        extParts.push(dayName + ": " + desc + " (" + hi + "°F / " + lo + "°F)");
-                    }
-
-                    weatherData.temp = temp;
-                    weatherData.celsius = celsius;
-                    weatherData.tempFeel = tempFeel;
-                    weatherData.tempFeelCelsius = tempFeelCelsius;
-                    weatherData.description = description;
-                    weatherData.precipChance = precipChance;
-
-                    document.getElementById("conditions").innerHTML =
-                        "<p>It is currently " + Math.round(temp) + " °F and " + description +
-                        "<br><br>Chance of precipitation is " + precipChance + "</p>";
-
-                    if (Math.round(temp) !== Math.round(tempFeel)) {
-                        document.getElementById("variables").innerHTML =
-                            "<p>It feels like it is " + Math.round(tempFeel) + " °F.</p>";
-                    }
-
-                    document.getElementById("twentyfour").innerHTML = "<p>" + hourlyDescription + "</p>";
-
-                    document.getElementById("extended").innerHTML =
-                        "<p>Your extended forecast: " + extParts.join(" &bull; ") + "</p>";
-
-                    var iconClass = getWeatherIcon(weatherCode, isDay);
-                    document.getElementById("weathercon").innerHTML = '<i class="wi ' + iconClass + '"></i>';
-
-                } catch(e) {
-                    document.getElementById("conditions").innerHTML = "<p>Error displaying weather: " + e.message + "</p>";
-                }
-            },
-            error: function(jqXHR, textStatus) {
-                document.getElementById("conditions").innerHTML = "<p>Unable to load weather data (" + textStatus + "). Please refresh the page.</p>";
-            }
-        });
-
     }, function() {
-        output.innerHTML = "<p>Unable to retrieve your location. Please allow location access and refresh.</p>";
+        showApp();
+        document.getElementById('out').innerHTML = '<p>Unable to retrieve your location. Please allow location access and refresh.</p>';
     });
 }
 
-function convertC() {
-    if (weatherData.temp === null) return;
-    document.getElementById("conditions").innerHTML =
-        "<p>It is currently " + weatherData.celsius + " °C and " + weatherData.description +
-        "<br><br>Chance of precipitation is " + weatherData.precipChance + "</p>";
+function searchLocation() {
+    var query = document.getElementById('location-input').value.trim();
+    if (!query) return;
 
-    if (Math.round(weatherData.temp) !== Math.round(weatherData.tempFeel)) {
-        document.getElementById("variables").innerHTML =
-            "<p>It feels like it is " + weatherData.tempFeelCelsius + " °C.</p>";
-    }
+    document.getElementById('location-input').blur();
+    document.getElementById('loading').style.display = '';
+    document.getElementById('app').style.display = 'none';
+
+    fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(query) + '&format=json&limit=1')
+        .then(function(r) { return r.json(); })
+        .then(function(results) {
+            if (!results || results.length === 0) {
+                showApp();
+                document.getElementById('out').innerHTML = '<p>Location not found. Try a different search.</p>';
+                return;
+            }
+            var r = results[0];
+            fetchWeather(parseFloat(r.lat), parseFloat(r.lon), r.display_name.split(',').slice(0, 2).join(',').trim());
+        })
+        .catch(function() {
+            showApp();
+            document.getElementById('out').innerHTML = '<p>Search failed. Please try again.</p>';
+        });
 }
 
-function convertF() {
-    if (weatherData.temp === null) return;
-    document.getElementById("conditions").innerHTML =
-        "<p>It is currently " + Math.round(weatherData.temp) + " °F and " + weatherData.description +
-        "<br><br>Chance of precipitation is " + weatherData.precipChance + "</p>";
+function fetchWeather(lat, lon, locationName) {
+    var apiUrl = 'https://api.open-meteo.com/v1/forecast' +
+        '?latitude=' + lat +
+        '&longitude=' + lon +
+        '&current=temperature_2m,apparent_temperature,precipitation_probability,weather_code,is_day,relative_humidity_2m,wind_speed_10m' +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+        '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto&forecast_days=7';
 
-    if (Math.round(weatherData.temp) !== Math.round(weatherData.tempFeel)) {
-        document.getElementById("variables").innerHTML =
-            "<p>It feels like it is " + Math.round(weatherData.tempFeel) + " °F.</p>";
-    }
+    fetch(apiUrl)
+        .then(function(r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        })
+        .then(function(data) {
+            var current = data.current;
+            var daily = data.daily;
+
+            var temp = current.temperature_2m;
+            var tempFeel = current.apparent_temperature;
+            var weatherCode = current.weather_code;
+            var isDay = current.is_day === 1;
+
+            weatherData.temp = temp;
+            weatherData.celsius = toC(temp);
+            weatherData.tempFeel = tempFeel;
+            weatherData.tempFeelCelsius = toC(tempFeel);
+            weatherData.description = getWeatherDescription(weatherCode, isDay);
+            weatherData.precipChance = current.precipitation_probability + '%';
+            weatherData.humidity = current.relative_humidity_2m + '%';
+            weatherData.windSpeed = Math.round(current.wind_speed_10m) + ' mph';
+            weatherData.iconClass = getWeatherIcon(weatherCode, isDay);
+
+            var hiF = Math.round(daily.temperature_2m_max[0]);
+            var loF = Math.round(daily.temperature_2m_min[0]);
+            weatherData.todayHiF = hiF;
+            weatherData.todayLoF = loF;
+            weatherData.todayHiC = toC(hiF);
+            weatherData.todayLoC = toC(loF);
+
+            var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            weatherData.forecastDays = [];
+            for (var i = 1; i < daily.time.length; i++) {
+                var d = new Date(daily.time[i] + 'T12:00:00');
+                var dHiF = Math.round(daily.temperature_2m_max[i]);
+                var dLoF = Math.round(daily.temperature_2m_min[i]);
+                weatherData.forecastDays.push({
+                    dayName: dayNames[d.getDay()],
+                    iconClass: getWeatherIcon(daily.weather_code[i], true),
+                    hiF: dHiF,
+                    loF: dLoF,
+                    hiC: toC(dHiF),
+                    loC: toC(dLoF)
+                });
+            }
+
+            // Populate static/non-unit elements
+            document.getElementById('userAddress').innerHTML = '<p>' + (locationName || '') + '</p>';
+            document.getElementById('weathercon').innerHTML = '<i class="wi ' + weatherData.iconClass + '"></i>';
+            document.getElementById('description').textContent = weatherData.description;
+            document.getElementById('detail-precip').textContent = weatherData.precipChance;
+            document.getElementById('detail-humidity').textContent = weatherData.humidity;
+            document.getElementById('detail-wind').textContent = weatherData.windSpeed;
+            document.getElementById('out').innerHTML = '';
+
+            var todayCode = daily.weather_code[0];
+            document.getElementById('today-summary').innerHTML =
+                '<p>Expect ' + getWeatherDescription(todayCode, true).toLowerCase() + ' conditions throughout today.</p>';
+
+            // Render unit-dependent values
+            renderWeather(currentUnit);
+            showApp();
+        })
+        .catch(function(err) {
+            showApp();
+            document.getElementById('out').innerHTML = '<p>Unable to load weather data. Please try again.</p>';
+        });
 }
+
+// Allow pressing Enter in the search input
+document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('location-input');
+    if (input) {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') searchLocation();
+        });
+    }
+});
