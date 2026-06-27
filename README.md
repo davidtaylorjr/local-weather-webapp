@@ -4,42 +4,52 @@ An Open-Source Web Application by David Taylor, Jr.
 
 ## Description
 
-**Your Local Weather** is a simple web application that pulls weather off of geolocation services within the browser to display current conditons of any given location.
+**Your Local Weather** is a static web application that uses your browser's geolocation (or a city search) to display current weather conditions, an hourly forecast, a 10-day extended forecast, and a live radar map — all with no account or API key required.
 
-The app pulls data from the [Dark Sky API](http://darksky.net/dev) and provides:
+Weather data is provided by [Open-Meteo](https://open-meteo.com/), an open-source weather API. Location lookup uses [Nominatim](https://nominatim.org/) (OpenStreetMap). Radar is powered by [RainViewer](https://www.rainviewer.com/).
 
-- Current Conditions
-- Conditions for next 24 hours
-- Options to change between imperial and metric temperatures
-- If the "feels like" or "apparent" temperature is different that the current outside temperature that will display as well.
-- Weather icons were provided by [Patharanordev](https://github.com/patharanordev) and can be found at his [Github Repository](https://github.com/patharanordev/weather-icon-animated)
+## Features
 
-### Current Version
+- **Current conditions** — temperature, feels like, precipitation chance, humidity, and wind speed
+- **Hero display** — large weather icon, condition description, and today's high/low
+- **Hourly forecast** — next 24 hours in a scrollable strip with icon, temperature, and precip %
+- **10-Day forecast** — extended daily forecast in a scrollable strip; toggle between Hourly and 10-Day views
+- **Temperature toggle** — switch between °F and °C; all values update instantly without re-fetching
+- **Location search** — type any city name to get weather for that location
+- **GPS location** — uses browser geolocation to show weather for your current position
+- **Live radar map** — interactive Leaflet map with RainViewer radar overlay (tap Show Radar to open)
 
+## Dependencies
 
-The current release is [v1.3](https://github.com/davidtaylorjr/local-weather-webapp/releases/latest) and is on a steady development cycle.
+All dependencies are free to use with no API key required.
 
+| Library / API | Purpose | License / Cost |
+|--------------|---------|---------------|
+| [Open-Meteo](https://open-meteo.com/) | Weather data (current, hourly, 10-day forecast) | Free, no key |
+| [Nominatim (OpenStreetMap)](https://nominatim.org/) | Reverse geocoding (GPS → city name) and city search | Free, no key |
+| [RainViewer](https://www.rainviewer.com/api.html) | Radar tile overlay | Free, no key |
+| [Leaflet.js 1.9.4](https://leafletjs.com/) | Interactive radar map | Open source (BSD-2) |
+| [jQuery 3.7.1](https://jquery.com/) | AJAX for geocoding requests | Open source (MIT) |
+| Weather Icons | Font-based weather icon set | Included in repo |
 
-
-### Future Feature Plans
-
-Future featrues that are currently planned are:
-
-- Location Search
-- Daily Almanac Details
-- And More!
-
-To leave suggestions for future feature requests please open an [Issue](https://github.com/davidtaylorjr/local-weather-webapp/issues)
-
+Leaflet and jQuery are loaded from CDN at runtime. No npm or build step is required.
 
 ## How To Use
 
-The source code can be found on the releases page or can be cloned and update. The site is built using JavaScript, HTML5 and CSS3. Feel free to modify the code under the terms of the [License](https://github.com/davidtaylorjr/local-weather-webapp/blob/master/LICENSE.txt).
+**No API keys required.** Clone or download the repository and open `index.html` directly in a browser, or host the files on any static web server (e.g. GitHub Pages).
 
-An API key must be obtained from the following sources:
+```bash
+git clone https://github.com/davidtaylorjr/local-weather-webapp.git
+cd local-weather-webapp
+open index.html   # or serve with any static file server
+```
 
-- [Dark Sky API](https://darksky.net/dev/register)
-- [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)
+- **GPS weather** — allow location access when prompted; the app loads your local weather automatically
+- **City search** — type a city name in the search bar and press Enter or tap the search button
+- **Radar** — tap "Show Radar" to expand the interactive radar map below the forecast strip
+- **Units** — tap °F or °C in the header to switch temperature units
+
+The app is mobile-first and tested on iOS Safari. Location permission is required for GPS; the search bar works without it.
 
 ## Contributing
 
